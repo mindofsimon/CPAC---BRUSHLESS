@@ -1,6 +1,8 @@
 import processing.core.PGraphics;
 import processing.awt.PGraphicsJava2D;
 import processing.video.*;
+import oscP5.*;
+import netP5.*;
 
 boolean DEBUG_MODE = false;//set to bypass controller
 PGraphics drawing = new PGraphicsJava2D();
@@ -8,7 +10,12 @@ PImage target;
 int N_particles = 40;
 float damp = 0.08; //viscous damping coefficient
 ArrayList<Particle> particles = new ArrayList<Particle>();
+int PORT_SC = 57120;//SuperCollider default port
+OscP5 oscP5 = new OscP5(this,PORT_SC);
+NetAddress ip_port_SC = new NetAddress("127.0.0.1",PORT_SC);//ip address of SC (localhost);
 
+
+  
 
 color thisColor;
 color targetColor = color(0,255,0);
@@ -61,6 +68,7 @@ void draw() {
     image(drawing,0,0);
     drawBall(x,y);
   }
+  sendMsg();
 }
 
 void mouseClicked(){
@@ -73,4 +81,21 @@ void drawBall(int x, int y){
     fill(targetColor);
     stroke(0,0,0);
     ellipse(x,y,10,10);
+}
+
+void sendMsg(){
+  OscMessage msg = new OscMessage("/sonification");
+  float rel_x=map(x,0,width,-width,width);
+  float rel_y=map(y,0,height,-height,height);
+  if(rel_x<0){
+    rel_x=-rel_x;
+  }
+  if(rel_y<0){
+    rel_y=-rel_y;
+  }
+  rel_x=(rel_x/width)/2;
+  rel_y=(rel_y/height)/2;
+  msg.add(map(rel_x,-0.5,0.5,-1,1));
+  msg.add(map(rel_y,-0.5,0.5,-1,1));
+  oscP5.send(msg, ip_port_SC);
 }
