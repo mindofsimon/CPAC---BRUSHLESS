@@ -21,6 +21,7 @@ PImage target;
 int PORT_SC = 57120;//SuperCollider default port
 OscP5 oscP5 = new OscP5(this,PORT_SC);
 NetAddress ip_port_SC = new NetAddress("127.0.0.1",PORT_SC);//ip address of SC (localhost);
+long target_brightness = 0;
 
 //CHOOSE TARGET IMAGE AND EFFECT
 String FILENAME = "maggiolino.jpg";
@@ -37,6 +38,12 @@ void setup(){
   target = loadImage(FILENAME);
   size(640,480);
   background(0);
+
+  for (int y=0;y<height;y++){
+    for (int x=0;x<width;x++){
+      target_brightness += brightness(target.get(x,y));
+    }
+  }
   
   //POPULATE THE PARTICLE SET (ACCORDING TO CHOSEN EFFECT)
   switch(EFFECT){
@@ -104,7 +111,16 @@ void draw(){
     p.update();
     p.render();
   }
-  sendMsg(CtrlX,CtrlY);
+  //Evaluate brightness
+  long sum = 0;
+  for (int y=0;y<height;y++){
+    for (int x=0;x<width;x++){
+      sum += brightness(get(x,y));
+    }
+  }
+  float bright = (float)sum / (float)target_brightness;
+  
+  sendMsg(CtrlX,CtrlY,bright);
 }
 
 void keyPressed(){ //PRESS S TO SAVE THE IMAGE
