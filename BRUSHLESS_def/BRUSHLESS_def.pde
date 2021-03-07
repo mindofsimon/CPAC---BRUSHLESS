@@ -23,6 +23,12 @@ OscP5 oscP5 = new OscP5(this,PORT_SC);
 NetAddress ip_port_SC = new NetAddress("127.0.0.1",PORT_SC);//ip address of SC (localhost);
 long target_brightness = 0;
 
+//these are used to see if between two consecutive frames something has changed, if so, we need to inform SC
+float prev_bright = 0;
+float prev_CtrlX=0;
+float prev_CtrlY=0;
+
+
 //CHOOSE TARGET IMAGE AND EFFECT
 String FILENAME = "maggiolino.jpg";
 int EFFECT = 4;
@@ -120,7 +126,12 @@ void draw(){
   }
   float bright = (float)sum / (float)target_brightness;
   
-  sendMsg(CtrlX,CtrlY,bright);
+  if(CtrlX!=prev_CtrlX & CtrlY!=prev_CtrlY & bright!=prev_bright){//not to overload SC
+    sendMsg(CtrlX,CtrlY,bright);
+  }
+  prev_CtrlX=CtrlX;
+  prev_CtrlY=CtrlY;
+  prev_bright=bright;
 }
 
 void keyPressed(){ //PRESS S TO SAVE THE IMAGE

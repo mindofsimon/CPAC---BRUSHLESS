@@ -1,12 +1,12 @@
 //reading sound file
-s.reboot;
+s.boot;
 p = thisProcess.nowExecutingPath.dirname +/+ "AK - Ronald Reagan Blvd.wav";
 b = Buffer.read(s, p);
 
 //SynthDef creation
 (
-x = SynthDef(\song_Buffer, { arg out = [0, 1], bufnum, rev=0 , room=0;
-	Out.ar(out,FreeVerb.ar(PlayBuf.ar(2, bufnum, BufRateScale.kr(bufnum)),rev,room));
+x = SynthDef(\song_Buffer, { arg out = [0, 1], bufnum, mix=1, pos=0, dust_amp=0, freq=200;
+	Out.ar(out,Pan2.ar(LPF.ar(Mix.ar([FreeVerb.ar(PlayBuf.ar(1, bufnum, BufRateScale.kr(bufnum)), mix), Dust.ar(20,dust_amp)]),freq), pos));
 }).add();
 )
 
@@ -22,13 +22,15 @@ NetAddr("127.0.0.1",57120);
 OSCdef('OSCreceiver',
 	{
 		arg msg;
-		var rev, room;
+		var ctrlx, ctrly, bright, dust;
 
 		msg.postln;
-		rev=msg[1];
-		room=msg[2];
+		ctrlx=msg[1];
+		ctrly=msg[2];
+		bright=msg[3];
+		dust=msg[4];
 
-		~buff.set(\rev, rev, \room,room);
+		~buff.set(\mix, bright, \pos, ctrlx, \freq, (1-bright)*20000+200, \dust_amp, dust);
 
 	},
 	"/sonification");
