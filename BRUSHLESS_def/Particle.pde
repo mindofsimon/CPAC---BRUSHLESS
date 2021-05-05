@@ -56,14 +56,14 @@ class Particle{
     }
     
   }
-  void update(){//physic simulation
+  void update(float x, float y){//physic simulation
     this.x += this.v_x + this.offsetX;
     this.y += this.v_y + this.offsetY;
     this.x = constrain(this.x,0,width);
     this.y = constrain(this.y,0,height);
     if (EFFECT==3 && this.y>=height){
-      this.x = mouseX;
-      this.y = mouseY;
+      this.x = x;
+      this.y = y;
       this.v_x = random(-1,1);
       this.v_y = random(-1,1);
     }

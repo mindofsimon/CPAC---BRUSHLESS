@@ -1,4 +1,4 @@
-void sendMsg(float x, float y,float bright){
+void sendMsg(float x, float y,float z, float bright){
   float dust_amp=1.0;
   float dust_thr=0.99;
   OscMessage msg = new OscMessage("/sonification");
@@ -9,7 +9,7 @@ void sendMsg(float x, float y,float bright){
   rel_x=map(rel_x,-0.5,0.5,-1,1);
   rel_y=map(rel_y,-0.5,0.5,-1,1);
   msg.add(rel_x);//from -1 to 1 it will control PAN
-  msg.add(rel_y);
+  //msg.add(rel_y);
   if(bright>1){//from 0 to 1 it will control Reverb (mix parameter)
     bright=1;
   }
@@ -21,6 +21,8 @@ void sendMsg(float x, float y,float bright){
     dust_amp=0.0;
   }
   msg.add(dust_amp);
+  z = map(z, 0,100, 0,1);
+  msg.add(z);
   oscP5.send(msg, ip_port_SC);
   //println(bright); //debug
   //bright è il rapporto tra la luminosità dell'immagine e la luminosità del target

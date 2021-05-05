@@ -22,7 +22,7 @@ int N_particles;
 PImage target;
 int PORT_SC = 57120;//SuperCollider default port
 OscP5 oscP5 = new OscP5(this,PORT_SC);
-NetAddress ip_port_SC = new NetAddress("127.0.0.1",PORT_SC);//ip address of SC (localhost);
+NetAddress ip_port_SC = new NetAddress("192.168.2.10",PORT_SC);//ip address of SC (localhost);
 long target_brightness = 0;
 
 //these are used to see if between two consecutive frames something has changed, if so, we need to inform SC
@@ -34,8 +34,8 @@ float[] coord = new float[3];
 float[] angle = new float[3]; 
 
 //CHOOSE TARGET IMAGE AND EFFECT
-String FILENAME = "maggiolino.jpg";
-int EFFECT = 4;
+String FILENAME = "gen.png";
+int EFFECT = 1;
 /* POSSIBLE EFFECTS:
  * 0: DISCOVER
  * 1: SCRATCH
@@ -46,7 +46,7 @@ int EFFECT = 4;
 
 void setup(){
   target = loadImage(FILENAME);
-  size(640,480);
+  size(512,512);
   background(0);
   
   leap = new LeapMotion(this);
@@ -115,9 +115,10 @@ void draw(){
 
   float CtrlX = int(coord[0]);
   float CtrlY = int(coord[1]);
+  float CtrlZ = int(coord[2]);
   
   
-  println(CtrlX, CtrlY);
+  
   
   //COMMENT THIS LINES TO CONNECT SENSOR
   //float CtrlX = mouseX;
@@ -143,7 +144,7 @@ void draw(){
         break;
     }
     //SIMULATE AND RENDER
-    p.update();
+    p.update(CtrlX, CtrlY);
     p.render();
   }
   //Evaluate brightness
@@ -156,7 +157,7 @@ void draw(){
   float bright = (float)sum / (float)target_brightness;
   
   if(CtrlX!=prev_CtrlX & CtrlY!=prev_CtrlY & bright!=prev_bright){//not to overload SC
-    sendMsg(CtrlX,CtrlY,bright);
+    sendMsg(CtrlX,CtrlY,CtrlZ,bright);
   }
   prev_CtrlX=CtrlX;
   prev_CtrlY=CtrlY;
