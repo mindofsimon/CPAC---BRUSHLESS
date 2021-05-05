@@ -15,6 +15,8 @@
 */
 import oscP5.*;
 import netP5.*;
+import netP5.*;
+import de.voidplus.leapmotion.*;
 ArrayList<Particle> particles = new ArrayList<Particle>();
 int N_particles;
 PImage target;
@@ -27,7 +29,9 @@ long target_brightness = 0;
 float prev_bright = 0;
 float prev_CtrlX=0;
 float prev_CtrlY=0;
-
+LeapMotion leap;
+float[] coord = new float[3];
+float[] angle = new float[3]; 
 
 //CHOOSE TARGET IMAGE AND EFFECT
 String FILENAME = "maggiolino.jpg";
@@ -44,6 +48,10 @@ void setup(){
   target = loadImage(FILENAME);
   size(640,480);
   background(0);
+  
+  leap = new LeapMotion(this);
+  coord[0] = 0;
+  coord[1] = 0;
 
   for (int y=0;y<height;y++){
     for (int x=0;x<width;x++){
@@ -89,10 +97,31 @@ void setup(){
 void draw(){
   
   //Get Kinect Data
+  for (Hand hand : leap.getHands ()) {
+    
+    Finger fingerIndex = hand.getIndexFinger();
+    PVector IndexPosition = fingerIndex.getPosition();
+    Finger fingerMiddle = hand.getMiddleFinger();
+    PVector MiddlePosition = fingerMiddle.getPosition();
+    Finger fingerThumb = hand.getThumb();
+    PVector ThumbPosition = fingerThumb.getPosition();
+  
+    
+    coord[0] = 1.1*(IndexPosition.x +MiddlePosition.x + ThumbPosition.x) / 3 ;
+    coord[1] = 1.1*(IndexPosition.y +MiddlePosition.y + ThumbPosition.y) / 3 ; 
+    coord[2] = 1.1*(IndexPosition.z +MiddlePosition.z + ThumbPosition.z) / 3 ; 
+ 
+  }
+
+  float CtrlX = int(coord[0]);
+  float CtrlY = int(coord[1]);
+  
+  
+  println(CtrlX, CtrlY);
   
   //COMMENT THIS LINES TO CONNECT SENSOR
-  float CtrlX = mouseX;
-  float CtrlY = mouseY;
+  //float CtrlX = mouseX;
+  //float CtrlY = mouseY;
   
   for (Particle p : particles){
     //APPLY FORCE: EFFECT 3 HAS GRAVITY
