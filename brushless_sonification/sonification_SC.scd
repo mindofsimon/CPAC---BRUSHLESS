@@ -15,22 +15,22 @@ x = SynthDef(\song_Buffer, { arg out = [0, 1], bufnum, mix=1, pos=0, dust_amp=0,
 x.free; b.free;//to stop them...
 
 //Connection with Processing
-NetAddr("127.0.0.1",57120);
+NetAddr("192.168.2.11",57120);
 
 //Receiving from Processing
 (//controlling mix and room parameters of Reverb
 OSCdef('OSCreceiver',
 	{
 		arg msg;
-		var ctrlx, ctrly, bright, dust;
+		var ctrlx, depth, bright, dust;
 
 		msg.postln;
 		ctrlx=msg[1];
-		ctrly=msg[2];
-		bright=msg[3];
-		dust=msg[4];
+		bright=msg[2];
+		dust=msg[3];
+		depth=msg[4];
 
-		~buff.set(\mix, bright, \pos, ctrlx, \freq, (1-bright)*20000+200, \dust_amp, dust);
+		~buff.set(\mix, (1-depth), \pos, ctrlx, \freq, (1-bright)*20000+200, \dust_amp, dust);
 
 	},
 	"/sonification");
