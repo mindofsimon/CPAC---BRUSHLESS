@@ -44,6 +44,7 @@ To have a better experience we recommend to run Processing on one machine and Su
    - inside *BRUSHLESS_def* folder open *BRUSHLESS_def.pde* and connect your *LEAP MOTION* sensor
    - inside *brushless_sonification* folder open *sonification_SC.scd*
    - set the IP addresses of the machines on which you're running Processing and SuperCollider (or just set both addresses at 127.0.0.1 if you run both on localhost)
+   - set the desired particle system effect
    - run the Processing script and execute all blocks from SuperCollider script
 5. **enjoy!**
    - now you can move your hand in front of the *LEAP MOTION* sensor and start playing around!
