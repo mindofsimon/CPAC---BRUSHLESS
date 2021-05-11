@@ -5,7 +5,7 @@
 Welcome to **BRUSHLESS**
 
 ## GENERAL INFORMATIONS
-You can check out our power point presentation [slides](https://docs.google.com/presentation/d/1ybYcjDjga3YgYBNOZjIyuSXWl-OYxFCdy7jCowFl5Yg/edit?usp=sharing)
+You can check out our power point presentation [slides](https://docs.google.com/presentation/d/1ybYcjDjga3YgYBNOZjIyuSXWl-OYxFCdy7jCowFl5Yg/edit?usp=sharing).
 To run is required to have both [Processing](https://processing.org/download/) and [SuperCollider](https://supercollider.github.io/download) installed on your machines and to have a *LEAP MOTION* sensor.
 
 ## HOW TO USE
