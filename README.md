@@ -2,7 +2,8 @@
 **CPAC** 2020/2021 Project (Daniele Leonzio, Simone Mariani, Martino Schgor) - **POLIMI**
 
 ## PURPOSE
-Welcome to **BRUSHLESS**
+Welcome to **BRUSHLESS**!
+
 BRUSHLESS is one of the projects for the 2020/2021 *Creative Programming and Computing* course at the *Music and Acoustic Engineering* master at *Politecnico di Milano*.
 
 The main purpose of this project is to realize virtual paintings by generating an artwork and then paint over it in a cool way through the use of a particle system.
