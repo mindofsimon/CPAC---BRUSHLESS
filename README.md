@@ -38,7 +38,8 @@ To have a better experience we recommend to run Processing on one machine and Su
 3. **image generation**
    - go inside CPC_GAN folder
    - run CPC_GAN (you can do it on *GoogleColab*)
-   - to save time you can avoid doing training and use our pre-saved checkpoints for both Generator and Discriminator, in this case you can upload to *GoogleColab* G-2.ckpt and D-2.ckpt and execute just **last 2 cell blocks**
+   - to run the script you need a kaggle account and downlaod your .json file from kaggle
+   - to save time you can avoid doing training and use our pre-saved checkpoints for both Generator and Discriminator, in this case you can upload to *GoogleColab* G-2.ckpt and D-2.ckpt. In this way you need just to run all the function declarations, create the two models and then you can create as many images you want with the two last cell blocks.
    - download the generated image and move it into *BRUSHLESS_def* folder
 4. **run scripts**
    - inside *BRUSHLESS_def* folder open *BRUSHLESS_def.pde* and connect your *LEAP MOTION* sensor
