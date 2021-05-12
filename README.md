@@ -14,7 +14,7 @@ After the generation, the image is then painted just by moving a hand in front o
 
 The hand movement, should drive the particles in order to give to the user the feeling of giving a real brush stroke.
 
-In addition, we added some sound effects to immerse the user way more into the experience (some of them is also controlled by hand movement).
+In addition, we added some sound effects to immerse the user way more into the experience (some of them are also controlled by hand movement).
 
 Also, the user can select among 4 different effects related to the interactions between the particles.
 
