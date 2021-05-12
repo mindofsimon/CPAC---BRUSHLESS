@@ -16,7 +16,7 @@ The hand movement, should drive the particles in order to give to the user the f
 
 In addition, we added some sound effects to immerse the user way more into the experience (some of them are also controlled by hand movement).
 
-Also, the user can select among 4 different effects related to the interactions between the particles.
+Also, the user can select among 5 different effects related to the interactions between the particles.
 
 
 ## GENERAL INFORMATIONS
